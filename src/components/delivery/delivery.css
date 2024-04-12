@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1920px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+.main_holder_in_delivery{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:  0 0 0 10px;
+}
+.map_holder img{
+    width: 800px;
+    height: 600px;
+}
