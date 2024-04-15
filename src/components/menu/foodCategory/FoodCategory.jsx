@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './foodCategory.css';
 import { Link } from 'react-router-dom';
-import dishCardsByCategory from "../../data/DishCardsByCategory"
+import dishCardsByCategory from "../../data/DishCards/DishCardsByCategory"
 
 const FoodCategory = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);

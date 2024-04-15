@@ -6,7 +6,7 @@ import Map from './Map'
 const Delivery = () => {
   return (
       <>
-      <div className="container">
+      <div className="container"> 
         <div className="main_holder_in_delivery">
           <div className="txt_holder">
               <h1>Lorem, ipsum dolor sit amet consectetur adipisicing.</h1>
