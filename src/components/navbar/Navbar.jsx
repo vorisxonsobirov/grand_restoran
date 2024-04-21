@@ -15,7 +15,7 @@ const Navbar = () => {
             <Link to="/delivery"><p>Yetkazib berish</p></Link>
             <Link to="/contact"><p>Aloqa</p></Link>
             <Link to="/about"><p>Biz haqimizda</p></Link>
-            <button>Sign in</button>
+            <Link to="/login"><button>Sign in</button></Link>
             <button>Korzinka</button>
           </div>
         </div>
