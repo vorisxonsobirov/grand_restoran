@@ -8,11 +8,10 @@ const { Option } = Select;
 const UpdateWorkerForm = ({ visible, setVisible, onUpdate }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { workerId } = useParams(); // Извлекаем workerId из URL
+  const { workerId } = useParams(); 
 
   useEffect(() => {
     if (visible && workerId) {
-      // Загрузка данных о работнике при открытии модального окна
       axios.get(`http://localhost:5000/users/getWorkers/${workerId}`)
         .then(response => {
           const workerData = response.data.data;

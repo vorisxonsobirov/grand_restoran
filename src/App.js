@@ -19,10 +19,8 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // Предполагаемый тип пользователя на основе наличия токена в localStorage
     if (token) {
-      // Здесь вы можете установить userType в соответствии с вашими правилами
-      // Например, если у вас есть токен, предположим, что пользователь администратор
+   
       setUserType("admin");
     }
     setLoading(false);

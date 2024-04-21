@@ -1,4 +1,3 @@
-/* AdminPage.jsx */
 
 import React, { useState, useEffect } from 'react';
 import { Button, Table, Modal, Form, Input, Select, message } from 'antd';
@@ -21,24 +20,23 @@ const AdminPage = () => {
   const [type, setType] = useState('');
 
   useEffect(() => {
-    // Ишчилар рўйхатини ўқиш вараклари
-    axios.get('http://localhost:5000/users/getWorkers')
+    axios.get('https://restorant-backend.vercel.app/users/getWorkers')
       .then(response => {
         setWorkers(response.data.data);
       })
       .catch(error => {
-        console.error('Ишчиларни ўқишда хатолик:', error);
+        console.error('Ошибка при получении списка работников:', error);
       });
   }, []);
 
   const handleUpdate = () => {
-    axios.get(`http://localhost:5000/users/getWorkers`)
+    axios.get(`https://restorant-backend.vercel.app/users/getWorkers`)
       .then(response => {
         setWorkers(response.data.data);
       })
       .catch(error => {
-        console.error('Ишчиларни ўқишда хатолик:', error);
-        message.error('Ишчи маълумотини ўқиш муваффақиятли ўтказилмади');
+        console.error('Ошибка при получении списка работников:', error);
+        message.error('Не удалось получить данные работника');
       });
   };
 
@@ -52,26 +50,25 @@ const AdminPage = () => {
   };
 
   const handleDelete = (workerId) => {
-    axios.delete(`http://localhost:5000/users/workerDelete/${workerId}`)
+    axios.delete(`https://restorant-backend.vercel.app/users/workerDelete/${workerId}`)
       .then(response => {
         message.success(response.data.message);
         handleUpdate();
       })
       .catch(error => {
-        console.error('Ишчи ўчиришда хатолик:', error);
-        message.error('Ишчи ўчириш муваффақиятли амалга оширилмади');
+        console.error('Ошибка при удалении работника:', error);
+        message.error('Не удалось удалить работника');
       });
   };
 
   const handleAddSubmit = () => {
     const newWorker = { fullname, password, phone, birthday, type };
 
-    axios.post('http://localhost:5000/users/createworkers', newWorker)
+    axios.post('https://restorant-backend.vercel.app/users/createworkers', newWorker)
       .then(response => {
         message.success(response.data.message);
         handleUpdate();
         setAddModalVisible(false);
-        // Муваффақиятли қўшилган кейинга майдонларнинг қийматларини тозалаш
         setFullname('');
         setPassword('');
         setPhone('');
@@ -79,14 +76,14 @@ const AdminPage = () => {
         setType('');
       })
       .catch(error => {
-        console.error('Ишчи қўшишда хатолик:', error);
-        message.error('Ишчи қўшиш муваффақиятли амалга оширилмади');
+        console.error('Ошибка при добавлении работника:', error);
+        message.error('Не удалось добавить работника');
       });
   };
 
   const columns = [
     {
-      title: 'Тўлиқ исм',
+      title: 'ФИО',
       dataIndex: 'fullname',
       key: 'fullname',
     },
@@ -96,32 +93,32 @@ const AdminPage = () => {
       key: 'phone',
     },
     {
-      title: 'Туғилган кун',
+      title: 'Дата рождения',
       dataIndex: 'birthday',
       key: 'birthday',
     },
     {
-      title: 'Тур',
+      title: 'Должность',
       dataIndex: 'type',
       key: 'type',
     },
     {
-      title: 'Ҳаракат',
+      title: 'Действие',
       key: 'action',
       render: (text, record) => (
-        <div className="worker-actions">
-          <Button onClick={() => handleEdit(record._id)}>Таҳрир</Button>
-          <Button type="primary" danger ghost onClick={() => handleDelete(record._id)}>Ўчириш</Button>
-        </div>
+        <>
+          <Button onClick={() => handleEdit(record._id)}>Редактировать</Button>
+          <Button type="primary" danger ghost onClick={() => handleDelete(record._id)}>Удалить</Button>
+        </>
       ),
     },
   ];
 
   return (
     <div className="admin-container">
-      <h1>Администратор саҳифаси</h1>
+      <h1>Страница администратора</h1>
       <Button type="primary" onClick={handleAddWorker} className="add-worker-button">
-        Ишчи қўшиш
+        Добавить работника
       </Button>
       <Table dataSource={workers} columns={columns} className="worker-table" />
 
@@ -133,28 +130,28 @@ const AdminPage = () => {
       />
 
       <Modal
-        title="Ишчи қўшиш"
+        title="Добавить работника"
         visible={addModalVisible}
         onCancel={() => setAddModalVisible(false)}
         footer={[
-          <Button key="cancel" onClick={() => setAddModalVisible(false)}>Бекор қилиш</Button>,
-          <Button key="submit" type="primary" onClick={handleAddSubmit}>Тасдиқлаш</Button>,
+          <Button key="cancel" onClick={() => setAddModalVisible(false)}>Отмена</Button>,
+          <Button key="submit" type="primary" onClick={handleAddSubmit}>Подтвердить</Button>,
         ]}
       >
         <Form>
-          <Form.Item label="Тўлиқ исм">
+          <Form.Item label="ФИО">
             <Input value={fullname} onChange={(e) => setFullname(e.target.value)} />
           </Form.Item>
-          <Form.Item label="Парол">
+          <Form.Item label="Пароль">
             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
           </Form.Item>
           <Form.Item label="Телефон">
             <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
           </Form.Item>
-          <Form.Item label="Туғилган кун">
+          <Form.Item label="Дата рождения">
             <Input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
           </Form.Item>
-          <Form.Item label="Тур">
+          <Form.Item label="Должность">
             <Select value={type} onChange={(value) => setType(value)}>
               <Option value="admin">Администратор</Option>
               <Option value="manager">Менеджер</Option>
@@ -169,4 +166,3 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
-  
