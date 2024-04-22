@@ -38,7 +38,7 @@ const Home = () => (
           <img style={contentStyle} src={img6} alt="" />
         </div>
       </Carousel>
-      {/* <Menu /> */}
+      <Menu/>
     </div>
   </>
 

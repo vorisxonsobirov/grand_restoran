@@ -8,7 +8,6 @@ const Menu = () => {
       <div className="menu_holder">
         <FoodCategory />
       </div>
-
     </div>
   )
 }

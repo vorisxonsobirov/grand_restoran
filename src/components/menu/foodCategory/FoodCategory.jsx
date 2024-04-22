@@ -32,9 +32,6 @@ const FoodCategory = () => {
     'Noxorgi taomlar',
     'Muzqaymoq'
   ];
-
-
-
   const showDishes = (category) => {
     setSelectedCategory(category);
   };
@@ -56,30 +53,6 @@ const FoodCategory = () => {
             <span className="close" onClick={hideDishes}>&times;</span>
             <h2>{selectedCategory}</h2>
             <div className="dish-cards-container">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
               {dishCardsByCategory[selectedCategory].map((dish, index) => (
                 <div key={index} className="dish-card">
                   <h3>{dish.name}</h3>
