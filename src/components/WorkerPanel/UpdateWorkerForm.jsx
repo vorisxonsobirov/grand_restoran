@@ -12,7 +12,7 @@ const UpdateWorkerForm = ({ visible, setVisible, onUpdate }) => {
 
   useEffect(() => {
     if (visible && workerId) {
-      axios.get(`http://localhost:5000/users/getWorkers/${workerId}`)
+      axios.get(`https://restorant-backend.vercel.app/users/getWorkers/${workerId}`)
         .then(response => {
           const workerData = response.data.data;
           form.setFieldsValue({
@@ -35,7 +35,7 @@ const UpdateWorkerForm = ({ visible, setVisible, onUpdate }) => {
 
   const onFinish = values => {
     setLoading(true);
-    axios.put(`http://localhost:5000/users/workerEdit/${workerId}`, values)
+    axios.put(`https://restorant-backend.vercel.app/users/workerEdit/${workerId}`, values)
       .then(response => {
         setLoading(false);
         message.success('Worker updated successfully');
