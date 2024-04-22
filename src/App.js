@@ -6,7 +6,6 @@ import Menu from './components/menu/Menu';
 import Delivery from './components/delivery/Delivery';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
-import Footer from './components/footer/Footer';
 
 
 function App() {
