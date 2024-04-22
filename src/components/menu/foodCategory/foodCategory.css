@@ -19,11 +19,27 @@
   }
 
 
-  /* ::-webkit-scrollbar{
+  ::-webkit-scrollbar{
     width: 1px;
-  } */
+  }
 
-
+  .food-category-container::-webkit-scrollbar {
+    height: 10px; /* Ширина скроллбара */
+  }
+  
+  .food-category-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Цвет фона трека */
+  }
+  
+  .food-category-container::-webkit-scrollbar-thumb {
+    background: #888; /* Цвет ползунка */
+    border-radius: 5px; /* Скругление углов ползунка */
+  }
+  
+  .food-category-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Цвет ползунка при наведении */
+  }
+  
   .close {
     color: #aaa;
     float: right;
@@ -59,7 +75,7 @@
 }
 .food-category-container{
   display: flex;
-  gap: 5px;
+  gap: 15px;
   overflow:scroll;
 }
 .food-category-container::-webkit-scrollbar{
@@ -86,4 +102,61 @@
 .dish-card:hover{
   transform: scale(1.1);
   box-shadow: 0px 0px 30px #C78B41;
+}
+
+
+
+
+
+.food-category-item button {
+  display: flex; /* Разрешить использование flexbox */
+  flex-direction: column; /* Отображать элементы в столбец */
+  justify-content: flex-end; /* Выравнивание контента внизу кнопки */
+  align-items: center; /* Выравнивание контента по центру горизонтально */
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.food-category-item button img {
+  width: 40px; /* Ширина рисунка */
+  height: 40px; /* Высота рисунка */
+}
+
+.food-category-item button span {
+  margin-top: 5px; /* Отступ сверху для текста */
+}
+
+.food-category-item {
+  margin-bottom: 10px;
+}
+
+.food-category-item button {
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  overflow: hidden; /* Обрезает изображение по границам кнопки */
+}
+
+.food-category-item button img {
+  width: 100%; /* Чтобы изображение заполняло всю ширину кнопки */
+  height: 100%; /* Чтобы изображение заполняло всю высоту кнопки */
+  object-fit: cover; /* Масштабирует изображение, чтобы оно полностью заполнило контейнер без искажений */
+}
+
+
+
+
+.food-category-item{
+  width: 200px;
+  text-align: center;
+  font-family: sans-serif;
 }
