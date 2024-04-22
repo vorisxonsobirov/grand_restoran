@@ -1,3 +1,5 @@
+// UpdateWorkerForm.jsx
+
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Button, message, Select } from 'antd';
 import axios from 'axios';
@@ -5,27 +7,31 @@ import { useParams } from 'react-router-dom';
 
 const { Option } = Select;
 
-const UpdateWorkerForm = ({ visible, setVisible, onUpdate }) => {
+const UpdateWorkerForm = ({ visible, setVisible, workerId, onUpdate }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { workerId } = useParams(); 
+  const { workerId: paramWorkerId } = useParams();
+  const [workerData, setWorkerData] = useState(null);
 
   useEffect(() => {
-    if (visible && workerId) {
-      axios.get(`https://restorant-backend.vercel.app/users/getWorkers/${workerId}`)
-        .then(response => {
-          const workerData = response.data.data;
-          form.setFieldsValue({
-            fullname: workerData.fullname,
-            phone: workerData.phone,
-            birthday: workerData.birthday,
-            type: workerData.type,
-          });
-        })
-        .catch(error => {
-          console.error('Error fetching worker data:', error);
-          message.error('Failed to fetch worker data');
+    const fetchWorkerData = async () => {
+      try {
+        const response = await axios.get(`https://restorant-backend.vercel.app/users/getWorkers/${workerId}`);
+        setWorkerData(response.data.data);
+        form.setFieldsValue({
+          fullname: response.data.data.fullname,
+          phone: response.data.data.phone,
+          birthday: response.data.data.birthday,
+          type: response.data.data.type,
         });
+      } catch (error) {
+        console.error('Error fetching worker data:', error);
+        message.error('Failed to fetch worker data');
+      }
+    };
+
+    if (visible && workerId) {
+      fetchWorkerData();
     }
   }, [visible, workerId, form]);
 
@@ -33,20 +39,19 @@ const UpdateWorkerForm = ({ visible, setVisible, onUpdate }) => {
     setVisible(false);
   };
 
-  const onFinish = values => {
+  const onFinish = async values => {
     setLoading(true);
-    axios.put(`https://restorant-backend.vercel.app/users/workerEdit/${workerId}`, values)
-      .then(response => {
-        setLoading(false);
-        message.success('Worker updated successfully');
-        onUpdate();
-        setVisible(false);
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error('Error updating worker:', error);
-        message.error('Failed to update worker');
-      });
+    try {
+      await axios.put(`https://restorant-backend.vercel.app/users/workerEdit/${workerId}`, values);
+      setLoading(false);
+      message.success('Worker updated successfully');
+      onUpdate();
+      setVisible(false);
+    } catch (error) {
+      setLoading(false);
+      console.error('Error updating worker:', error);
+      message.error('Failed to update worker');
+    }
   };
 
   return (

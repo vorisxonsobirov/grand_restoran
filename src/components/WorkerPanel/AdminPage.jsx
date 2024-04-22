@@ -1,3 +1,4 @@
+// AdminPage.jsx
 
 import React, { useState, useEffect } from 'react';
 import { Button, Table, Modal, Form, Input, Select, message } from 'antd';
@@ -41,8 +42,12 @@ const AdminPage = () => {
   };
 
   const handleEdit = (workerId) => {
-    setSelectedWorkerId(workerId);
-    setUpdateModalVisible(true);
+    if (workerId) {
+      setSelectedWorkerId(workerId);
+      setUpdateModalVisible(true);
+    } else {
+      console.error('Ошибка: Недопустимый ID работника');
+    }
   };
 
   const handleAddWorker = () => {
