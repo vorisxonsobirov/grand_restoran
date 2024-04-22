@@ -2,7 +2,7 @@ const dishCardsByCategory = {
     'Milliy taomlar': [
       { name: 'Palov',  description: 'Классическая palov с томатным соусом, моцареллой и базиликом.' },
       { name: 'Kabob',  description: 'Пицца с пикантной пепперони и сыром моцарелла.' },
-      { name: 'Mastava', description: 'Пицца с ветчиной, ананасами и сыром моцарелла.' }
+      { name: 'Mastavaaaaa', description: 'Пицца с ветчиной, ананасами и сыром моцарелла.' }
     ],
     'Fast Food': [
       { name: 'Gamburger',        description: 'Бургер с говяжьей котлетой, сыром, овощами и соусом.' },
