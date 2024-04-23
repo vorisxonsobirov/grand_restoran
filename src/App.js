@@ -25,6 +25,7 @@ const App = () => {
     }
     setLoading(false);
   }, []);
+  console.log(userType);
 
   if (loading) {
     return <div>Loading...</div>;
