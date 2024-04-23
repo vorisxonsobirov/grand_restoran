@@ -110,7 +110,6 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className="address">
-                    <a href="+998 71 202-02-02">+998 71 202-02-02</a>
                     <p>Har kuni soat 09:00 dan 00:00 gacha</p>
                     <div className="tarmoq">
                         <p>Ijtimoiy tarmoqlarda baham ko'ring</p>

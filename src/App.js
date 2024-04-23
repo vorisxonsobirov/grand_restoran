@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-   
+
       setUserType("admin");
     }
     setLoading(false);
@@ -41,8 +41,12 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginForm />} />
-        {(userType === "admin" || userType === "manager") && <Route path="/admin" element={<AdminPage />} />}
-        {(userType === "manager" || userType === "waiter") && <Route path="/manager" element={<ManagerPage />} />}
+
+        <Route path="/admin" element={userType === "admin" || userType === "manager" ? <AdminPage /> : null} />
+        <Route path="/manager" element={userType === "manager" || userType === "waiter" ? <ManagerPage /> : null} />
+
+
+
         {(userType === "waiter" || userType === "cook") && <Route path="/waiter" element={<WaiterPage />} />}
         {userType === "cook" && <Route path="/cook" element={<CookPage />} />}
         <Route path="*" element={<Navigate to="/" />} />

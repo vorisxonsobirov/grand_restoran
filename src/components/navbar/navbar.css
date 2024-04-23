@@ -14,6 +14,7 @@
 .logo h1{
     cursor: pointer;
     color: #B5B5B6;
+    font-size: 29px;
 }
 .navbar{
     display: flex;
@@ -25,6 +26,7 @@
 }
 .navbar p{
      color: #B5B5B6;
+     font-size: 20px;
 }
 .links{
     display: flex;
