@@ -7,33 +7,31 @@ import { useParams } from 'react-router-dom';
 
 const { Option } = Select;
 
-const UpdateWorkerForm = ({ visible, setVisible, workerId, onUpdate }) => {
-  const [form] = Form.useForm();
+const UpdateWorkerForm = ({ visible, setVisible, workerId, onUpdate, workerList }) => {
   const [loading, setLoading] = useState(false);
-  const { workerId: paramWorkerId } = useParams();
-  const [workerData, setWorkerData] = useState(null);
+  const [form] = Form.useForm(); // Добавьте эту строку
 
   useEffect(() => {
     const fetchWorkerData = async () => {
       try {
-        const response = await axios.get(`https://restorant-backend.vercel.app/users/getWorkers/${workerId}`);
-        setWorkerData(response.data.data);
+        const userUpdate = workerList.find((item) => item._id === workerId);
         form.setFieldsValue({
-          fullname: response.data.data.fullname,
-          phone: response.data.data.phone,
-          birthday: response.data.data.birthday,
-          type: response.data.data.type,
+          fullname: userUpdate.fullname,
+          phone: userUpdate.phone,
+          birthday: userUpdate.birthday,
+          type: userUpdate.type,
         });
       } catch (error) {
-        console.error('Error fetching worker data:', error);
-        message.error('Failed to fetch worker data');
+        console.error('Ошибка при получении данных о сотруднике:', error);
+        message.error('Не удалось получить данные о сотруднике');
       }
     };
-
+  
     if (visible && workerId) {
       fetchWorkerData();
     }
   }, [visible, workerId, form]);
+  
 
   const handleCancel = () => {
     setVisible(false);
@@ -85,7 +83,7 @@ const UpdateWorkerForm = ({ visible, setVisible, workerId, onUpdate }) => {
           label="Birthday"
           rules={[{ required: true, message: 'Please input birthday' }]}
         >
-          <Input type='date' />
+          <Input />
         </Form.Item>
         <Form.Item
           name="type"

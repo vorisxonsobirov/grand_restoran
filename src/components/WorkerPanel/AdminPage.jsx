@@ -1,4 +1,3 @@
-// AdminPage.jsx
 
 import React, { useState, useEffect } from 'react';
 import { Button, Table, Modal, Form, Input, Select, message } from 'antd';
@@ -132,6 +131,7 @@ const AdminPage = () => {
         setVisible={setUpdateModalVisible}
         workerId={selectedWorkerId}
         onUpdate={handleUpdate}
+        workerList={workers}
       />
 
       <Modal

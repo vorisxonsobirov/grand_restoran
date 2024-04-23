@@ -12,6 +12,7 @@ import AdminPage from "./components/WorkerPanel/AdminPage";
 import ManagerPage from "./components/WorkerPanel/ManagerPage";
 import WaiterPage from "./components/WorkerPanel/WaiterPage";
 import CookPage from "./components/WorkerPanel/CookPage";
+import {jwtDecode} from 'jwt-decode'
 
 const App = () => {
   const [userType, setUserType] = useState(null);
@@ -19,13 +20,15 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(jwtDecode(token));
+    const decode = jwtDecode(token, {type: true})
+    const {type} = decode
+    
     if (token) {
-
-      setUserType("admin");
+      setUserType(type);
     }
     setLoading(false);
   }, []);
-  console.log(userType);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,15 +44,11 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginForm />} />
-
         <Route path="/admin" element={userType === "admin" || userType === "manager" ? <AdminPage /> : null} />
         <Route path="/manager" element={userType === "manager" || userType === "waiter" ? <ManagerPage /> : null} />
-
-
-
         {(userType === "waiter" || userType === "cook") && <Route path="/waiter" element={<WaiterPage />} />}
         {userType === "cook" && <Route path="/cook" element={<CookPage />} />}
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/" />} />  
       </Routes>
       <Footer />
     </div>
