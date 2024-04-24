@@ -41,12 +41,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginForm />} />
-
         <Route path="/admin" element={userType === "admin" || userType === "manager" ? <AdminPage /> : null} />
         <Route path="/manager" element={userType === "manager" || userType === "waiter" ? <ManagerPage /> : null} />
-
-
-
         {(userType === "waiter" || userType === "cook") && <Route path="/waiter" element={<WaiterPage />} />}
         {userType === "cook" && <Route path="/cook" element={<CookPage />} />}
         <Route path="*" element={<Navigate to="/" />} />

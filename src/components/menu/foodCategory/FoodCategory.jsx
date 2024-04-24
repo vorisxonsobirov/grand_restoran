@@ -55,7 +55,7 @@ const FoodCategory = () => {
     <div className="food-category-container">
       {foodCategories.map((category, index) => (
         <div key={index} className="food-category-item">
-          <button className='imgBtn' onClick={() => showDishes(category)}>
+          <button className='imgBtn' onClick={() => showDishes(category )}>
             <img  src={category.image} alt="" />
           </button>
             <span>{category.name}</span> 
@@ -67,7 +67,7 @@ const FoodCategory = () => {
             <span className="close" onClick={hideDishes}>&times;</span>
             <h2>{selectedCategory}</h2>
             <div className="dish-cards-container">
-              {dishCardsByCategory[selectedCategory].map((dish, index) => (
+              {dishCardsByCategory['Fast Food'].map((dish, index) => (
                 <div key={index} className="dish-card">
                   <h3>{dish.name}</h3>
                   <p>{dish.description}</p>
