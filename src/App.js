@@ -54,7 +54,7 @@ const App = () => {
           path="/admin"
           element={
             userType === "admin" || userType === "manager" ? (
-              <AdminPage />
+              <Panel />
             ) : null
           }
         />
