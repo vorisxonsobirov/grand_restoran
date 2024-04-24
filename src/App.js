@@ -38,7 +38,6 @@ const App = () => {
   return (
     <div className="App">
       <Navbar />
-      <Panel/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
@@ -50,7 +49,7 @@ const App = () => {
           path="/admin"
           element={
             userType === "admin" || userType === "manager" ? (
-              <AdminPage />
+              <Panel />
             ) : null
           }
         />
