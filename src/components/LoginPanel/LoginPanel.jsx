@@ -21,6 +21,7 @@ const LoginForm = () => {
         
         localStorage.setItem('token', response.data.token);
         navigateBasedOnUserType(response.data.user.type);
+        console.log(response.data.user.type );
       } else {
         message.error(response.data.message);
       }

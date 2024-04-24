@@ -12,7 +12,8 @@ import img6 from "../assets/slider_uz1634018278.jpg";
 import About from '../about/About';
 
 const contentStyle = {
-  height: '92vh',
+  height: '85vh',
+  width : "100%",
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',

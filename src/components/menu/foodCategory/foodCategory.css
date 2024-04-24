@@ -24,7 +24,7 @@
   }
 
   .food-category-container::-webkit-scrollbar {
-    height: 10px; /* Ширина скроллбара */
+    height: 8px; /* Ширина скроллбара */
   }
   
   .food-category-container::-webkit-scrollbar-track {
@@ -77,6 +77,7 @@
   display: flex;
   gap: 15px;
   overflow:scroll;
+  padding: 0 20px;
 }
 .food-category-container::-webkit-scrollbar{
   width: 100%;

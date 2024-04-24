@@ -8,10 +8,12 @@ import About from "./components/about/About";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
 import LoginForm from "./components/LoginPanel/LoginPanel";
-import AdminPage from "./components/WorkerPanel/AdminPage";
-import ManagerPage from "./components/WorkerPanel/ManagerPage";
-import WaiterPage from "./components/WorkerPanel/WaiterPage";
-import CookPage from "./components/WorkerPanel/CookPage";
+import AdminPage from "./Panel/WorkerCRUD/AdminPage";
+import ManagerPage from "./Panel/ManagerPage";
+import WaiterPage from "./Panel/WaiterPage";
+import CookPage from "./Panel/CookPage";
+import { jwtDecode } from "jwt-decode";
+import Panel from "./Panel/Panel";
 
 const App = () => {
   const [userType, setUserType] = useState(null);
@@ -19,13 +21,15 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
 
-      setUserType("admin");
+    if (token) {
+      console.log(jwtDecode(token));
+      const decode = jwtDecode(token, { type: true });
+      const { type } = decode;
+      setUserType(type);
     }
     setLoading(false);
   }, []);
-  console.log(userType);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,6 +38,7 @@ const App = () => {
   return (
     <div className="App">
       <Navbar />
+      {/* <Panel/> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
@@ -44,6 +49,26 @@ const App = () => {
         <Route path="/admin" element={userType === "admin" || userType === "manager" ? <AdminPage /> : null} />
         <Route path="/manager" element={userType === "manager" || userType === "waiter" ? <ManagerPage /> : null} />
         {(userType === "waiter" || userType === "cook") && <Route path="/waiter" element={<WaiterPage />} />}
+
+        <Route
+          path="/admin"
+          element={
+            userType === "admin" || userType === "manager" ? (
+              <AdminPage />
+            ) : null
+          }
+        />
+        <Route
+          path="/manager"
+          element={
+            userType === "manager" || userType === "waiter" ? (
+              <ManagerPage />
+            ) : null
+          }
+        />
+        {(userType === "waiter" || userType === "cook") && (
+          <Route path="/waiter" element={<WaiterPage />} />
+        )}
         {userType === "cook" && <Route path="/cook" element={<CookPage />} />}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
