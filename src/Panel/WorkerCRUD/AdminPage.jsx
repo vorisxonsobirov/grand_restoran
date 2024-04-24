@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Button, Table, Modal, Form, Input, Select, message } from 'antd';
+import { Button, Table, Modal, Form, Input, Select, message, Pagination } from 'antd';
 import axios from 'axios';
 import UpdateWorkerForm from './UpdateWorkerForm';
 import './style.css'; 
@@ -12,6 +11,8 @@ const AdminPage = () => {
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
   const [selectedWorkerId, setSelectedWorkerId] = useState(null);
   const [addModalVisible, setAddModalVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(7);
 
   const [fullname, setFullname] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +31,7 @@ const AdminPage = () => {
   }, []);
 
   const handleUpdate = () => {
-    axios.get(`https://restorant-backend.vercel.app/users/getWorkers`)
+    axios.get('https://restorant-backend.vercel.app/users/getWorkers')
       .then(response => {
         setWorkers(response.data.data);
       })
@@ -118,13 +119,22 @@ const AdminPage = () => {
     },
   ];
 
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
+  const dataToShow = workers.slice(start, end);
+
   return (
     <div className="admin-container">
       <h1>Страница администратора</h1>
       <Button type="primary" onClick={handleAddWorker} className="add-worker-button">
         Добавить работника
       </Button>
-      <Table dataSource={workers} columns={columns} className="worker-table" />
+      <Table
+        dataSource={dataToShow}
+        columns={columns}
+        className="worker-table"
+        pagination={{ current: currentPage, pageSize: pageSize, total: workers.length, onChange: setCurrentPage }}
+      />
 
       <UpdateWorkerForm
         visible={updateModalVisible}
